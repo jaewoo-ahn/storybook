@@ -6,7 +6,7 @@ export default {
   argTypes: {handleClick: {action: "handleClick"}},
 };
 
-const Template = (args) => <Card {...args} />;
+const Template = (args) => <Card {...args}></Card>;
 
 export const CardFirst = Template.bind({});
 CardFirst.args = {};
