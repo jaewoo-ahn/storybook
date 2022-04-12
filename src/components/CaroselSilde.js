@@ -1,22 +1,36 @@
 import React from "react";
 import {useState} from "react";
 import styled from "styled-components";
+import {useEffect} from "react";
 
 function CaroselSilde() {
   const [Issilde, SetisSilde] = useState(0);
+  const [SlideData, SetSlideData] = useState();
 
-  const HandleRightChange = () => {
+  const HandleRightChange = (e) => {
+    e.preventDefault();
     SetisSilde(Issilde + 1);
   };
 
-  const HandleLeftChange = () => {
+  const HandleLeftChange = (e) => {
+    e.preventDefault();
     SetisSilde(Issilde - 1);
   };
+
+  useEffect(() => {
+    fetch("/data/Mockup/market_collection.json")
+      .then((res) => res.json())
+      .then((data) => {
+        SetSlideData(data.data);
+      });
+  }, []);
+
+  console.log(SlideData);
   return (
     <SildeWrapper>
       <ButtonWrapper>
-        <SlideLeftButton>Left</SlideLeftButton>
-        <SlideRightButton>Right</SlideRightButton>
+        <SlideLeftButton onClick={HandleLeftChange}>Left</SlideLeftButton>
+        <SlideRightButton onClick={HandleRightChange}>Right</SlideRightButton>
       </ButtonWrapper>
     </SildeWrapper>
   );
