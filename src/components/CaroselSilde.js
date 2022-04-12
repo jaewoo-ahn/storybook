@@ -28,6 +28,16 @@ function CaroselSilde() {
   console.log(SlideData);
   return (
     <SildeWrapper>
+      {SlideData &&
+        SlideData.map((slide, idx) => {
+          return (
+            <Slide key={slide.id} isSelected={Issilde === idx + 1}>
+              <ImageDescription>
+                <SlideImg src={slide.thumbnail} alt={slide.title} />
+              </ImageDescription>
+            </Slide>
+          );
+        })}
       <ButtonWrapper>
         <SlideLeftButton onClick={HandleLeftChange}>Left</SlideLeftButton>
         <SlideRightButton onClick={HandleRightChange}>Right</SlideRightButton>
@@ -37,13 +47,6 @@ function CaroselSilde() {
 }
 
 export default CaroselSilde;
-
-const SildeWrapper = styled.div`
-  position: relative;
-  width: 1400px;
-  height: 500px;
-  border: 1px solid black;
-`;
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -68,4 +71,35 @@ const SlideLeftButton = styled.button`
   color: grey;
   left: 15px;
   top: 50%;
+`;
+
+const SildeWrapper = styled.div`
+  position: relative;
+  height: 500px;
+  margin: 120px auto 100px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  object-fit: cover;
+`;
+
+const Slide = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: lightslategray;
+  opacity: ${(props) => (props.isSelected ? 1 : 0)};
+  transition: opacity ease-in-out 0.4s;
+`;
+
+const ImageDescription = styled.div`
+  position: absolute;
+  top: 45%;
+  left: 15%;
+`;
+
+const SlideImg = styled.img`
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: scale(1.4);
 `;
